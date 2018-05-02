@@ -32,10 +32,7 @@ public static int[][] MultiplicacionOptima(int[] dim){
 public static String ParentesisOptimos(int[][] k_optimos, int i, int j){
 	if(i== j)
 		{ return ".";
-	}
-	else if (i+1==j)
-		{ return "(..)";
-	}
+	}	
 	else{
 		int k = k_optimos[i][j];
 		return "("+ParentesisOptimos(k_optimos, i , k)+ParentesisOptimos(k_optimos,k+1,j)+")";
@@ -77,7 +74,7 @@ public static void main(String[] args){
 			int s[][] = MultiplicacionOptima(dimensiones);
 			String S = ParentesisOptimos(s, 1, dimensiones.length-1);
 			// long tiempo_final = System.nanoTime() - tiempo_inicial;
-			System.out.println("Parentización Óptima:");
+			// System.out.println("Parentización Óptima:");
 			System.out.println(S);
 			// System.out.format("Tiempo de Ejecución: %d \n", tiempo_final);
 		}
