@@ -75,32 +75,6 @@ public static abb Derivate(abb a, String var){
 }
 
 
-// public static abb SimplificarArbol(abb a){
-	
-// 	String aux = a.elemento;
-
-// 	if(auxizq.equals("0")){
-// 		if(aux)
-// 	}
-
-
-
-// 	String auxizq = a.izq;
-// 	String auxder = a.der;
-// 	boolean bolizq = auxizq.equals("*") || auxizq.equals("/") || auxizq.equals("+")  || auxizq.equals("-");
-// 	boolean bolder = auxder.equals("*") || auxder.equals("/") || auxder.equals("+")  || auxder.equals("-");
-
-// 	if(  bolizq && bolder )
-// 	{ 
-
-// 		return new abb(aux,SimplificarArbol(a.izq), SimplificarArbol(a.der));
-// 	}
-
-
-// }
-
-
-
 public static abb SimplificarArbol(abb a){
 	String aux = a.elemento;
 	if(!(aux.equals("*") || aux.equals("/") || aux.equals("+")  || aux.equals("-")) )
@@ -112,9 +86,6 @@ public static abb SimplificarArbol(abb a){
 
 		abb sizq = SimplificarArbol(a.izq);
 		abb sder = SimplificarArbol(a.der);
-
-
-
 
 		if(sder.elemento.equals("0"))
 		{
