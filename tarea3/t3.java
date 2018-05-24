@@ -31,12 +31,42 @@ public static abb AddDataToABB(String[] o){
 
 public static String RecorrerArbol(abb a){
 
-	if(a.izq == null | a.der == null){
+	if(a.esHoja()){
 		return a.elemento;	
 	}
 
 	else{
-		return "(" + RecorrerArbol(a.izq) + " " + a.elemento + " " + RecorrerArbol(a.der) + ")";
+
+		boolean por_der = a.elemento.equals("*") && (a.der.elemento.equals("+") || a.der.elemento.equals("-") );
+		boolean por_izq = a.elemento.equals("*") && (a.izq.elemento.equals("+") || a.izq.elemento.equals("-") || a.izq.elemento.equals("/"));
+		
+		boolean div_der = a.elemento.equals("/") && (a.der.elemento.equals("+") || a.der.elemento.equals("-") || a.der.elemento.equals("*"));
+		boolean div_izq = a.elemento.equals("/") && (a.izq.elemento.equals("+") || a.izq.elemento.equals("-") );
+
+		if((por_der && por_izq) || (div_izq && div_der)) 
+		{
+			return "(" + RecorrerArbol(a.izq) + ")" + a.elemento + "(" + RecorrerArbol(a.der) + ")";
+		}
+		
+
+		else if((por_der) || (div_der)){
+
+			return RecorrerArbol(a.izq)  + a.elemento + "(" + RecorrerArbol(a.der) + ")";
+
+		}
+
+
+		else if((por_izq) || (div_izq)){
+
+			return "(" + RecorrerArbol(a.izq) + ")" + a.elemento + RecorrerArbol(a.der);
+
+		}
+
+		else{
+
+			return  RecorrerArbol(a.izq) + a.elemento + RecorrerArbol(a.der) ;
+		}
+
 	}
 }
 

@@ -17,6 +17,12 @@ class abb
     this.der=der;
   }
 
+  public boolean esHoja()
+  {
+    return this.izq==null && this.der==null;
+  }
+
+
 }
 
 
