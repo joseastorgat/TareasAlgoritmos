@@ -8,7 +8,7 @@ public static String[] split( String str){
 }
 
 
-public static abb AddDataToABB(String[] o){
+public static abb AddDataToABB(String[] o) throws DivisionPor0{
 	PilaABB pila = new PilaABB();
 
 	for(int i = 0; i<=o.length-1; i++){
@@ -17,10 +17,16 @@ public static abb AddDataToABB(String[] o){
 			//System.out.format("Primero Desapilo: %s \n",auxder.elemento); 
 			abb auxizq = pila.desapilar();
 			//System.out.format("Segundo Desapilo: %s \n ",auxizq.elemento ); 
-			pila.apilar(new abb(o[i],auxizq, auxder ));
+			
+			if(o[i].equals("/") && auxder.elemento.equals("0")){
+			         DivisionPor0 e = new DivisionPor0("División por 0");
+			         throw e;
+			}		
 			//System.out.format("Ahora Apilo     : %s %s %s \n", o[i], auxizq.elemento, auxder.elemento );
+			pila.apilar(new abb(o[i],auxizq, auxder ));
 			}
-		else{
+
+			else{
 			//System.out.format("Apilo:  %s \n",o[i]);
 			pila.apilar(new abb(o[i]));
 		}
@@ -158,37 +164,46 @@ public static abb SimplificarArbol(abb a){
 	}
 }
 public static void main(String[] args){
+	System.out.println("Ingrese Expresion (Notación Polaca Reversa): ");
 	Scanner sc = new Scanner(System.in);
-	//while(sc.hasNextLine()){
-		System.out.println("Ingrese Expresion (Notación Polaca Reversa): ");
+	while(sc.hasNextLine()){
 		String str 		 = sc.nextLine();
 		String strlist[] = split(str);
-		abb data = AddDataToABB(strlist);
 
-		String s = RecorrerArbol(data);
+		try
 
-		System.out.println("Expresión in-fijo:");
-		System.out.println(s);
+			{
+			abb expresion_inicial = AddDataToABB(strlist);
+			// String s = RecorrerArbol(data);
+			// System.out.println("Expresión in-fijo:");
+			// System.out.println(s);
+			
+			System.out.println("Ingrese variable: ");
+			String variable = sc.nextLine();
+			abb derivada = Derivate(expresion_inicial, variable);		
+			
+			// String sin_s = RecorrerArbol(derivada);
+			// System.out.println("Derivada respecto a: " + variable );		
+			// System.out.println(ss);
+			
+			
+			abb derivada_simplificada = SimplificarArbol(derivada);
+			String output = RecorrerArbol(derivada_simplificada);
 
-		System.out.println("Ingrese variable: ");
-		String r = sc.nextLine();
-		
-		abb b = Derivate(data,r);
-		String ss = RecorrerArbol(b);
+			System.out.println("Derivada respecto a: " + variable);		
+			System.out.println(output);
+		}
+		catch(DivisionPor0 exception)
+		{
+			System.out.println("Expresión Matemática contiene una división por 0! Siguiente Expresión");
+		}
 
-		System.out.println("Derivada respecto a: " + r );		
-		System.out.println(ss);
-		System.out.println("Simplificada: ");		
-		
-		abb c = SimplificarArbol(b);
-		String sss = RecorrerArbol(c);
-		System.out.println(sss);
-
-
-
-	//}	
-
-	//System.out.println("Fin de Ejecución" );// Fin de Ejecución 
-	//}	
+	}	
+	System.out.println("Fin de Ejecución" );// Fin de Ejecución 
+	}	
 }
-}
+ class DivisionPor0 extends Exception{
+     public DivisionPor0(String mensaje){
+         super(mensaje);
+     }
+ }
