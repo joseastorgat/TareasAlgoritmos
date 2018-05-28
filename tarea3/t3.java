@@ -8,15 +8,22 @@ public static String[] split( String str){
 }
 
 
-public static abb AddDataToABB(String[] o) throws DivisionPor0{
+public static abb AddDataToABB(String[] o) throws DivisionPor0, ExpresionInvalida{
 	PilaABB pila = new PilaABB();
 
 	for(int i = 0; i<=o.length-1; i++){
 		if(o[i].equals("*") || o[i].equals("/") || o[i].equals("+")  || o[i].equals("-") ){
+			
+
 			abb auxder = pila.desapilar();
 			//System.out.format("Primero Desapilo: %s \n",auxder.elemento); 
 			abb auxizq = pila.desapilar();
 			//System.out.format("Segundo Desapilo: %s \n ",auxizq.elemento ); 
+			if(auxder==null || auxizq==null){
+				ExpresionInvalida e = new ExpresionInvalida("Expresión Invalida");
+				throw e;
+
+			}
 			
 			if(o[i].equals("/") && auxder.elemento.equals("0")){
 			         DivisionPor0 e = new DivisionPor0("División por 0");
@@ -195,15 +202,26 @@ public static void main(String[] args){
 		}
 		catch(DivisionPor0 exception)
 		{
-			System.out.println("Expresión Matemática contiene una división por 0! Siguiente Expresión");
+			System.out.println("[ERROR] Expresión ingresada contiene una división por 0! \n\nSiguiente Expresión");
+		}
+		catch(ExpresionInvalida exception)
+		{
+			System.out.println("[ERROR] Expresión Ingresada no se encuentra en formato correcto. \nVerifica que la expresión ingresada se encuentra en notación polaca inversa.\n\nSiguiente Expresión");
 		}
 
 	}	
 	System.out.println("Fin de Ejecución" );// Fin de Ejecución 
 	}	
 }
- class DivisionPor0 extends Exception{
+
+class DivisionPor0 extends Exception{
      public DivisionPor0(String mensaje){
+         super(mensaje);
+     }
+ }
+
+class ExpresionInvalida extends Exception{
+     public ExpresionInvalida(String mensaje){
          super(mensaje);
      }
  }
