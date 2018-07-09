@@ -38,7 +38,16 @@ public static abb AddDataToABB(String[] o) throws DivisionPor0, ExpresionInvalid
 			pila.apilar(new abb(o[i]));
 		}
 	}
-	return pila.desapilar();
+
+	abb r = pila.desapilar();
+
+	if (pila.estaVacia()){
+		return r;}
+	else{
+		ExpresionInvalida e = new ExpresionInvalida("Expresión Invalida");
+		throw e;
+
+	}
 }
 
 
@@ -148,7 +157,7 @@ public static abb SimplificarArbol(abb a){
 				return sizq;
 			}
 
-			else if(aux.equals("+")) // Falta 0 - -> numero negativo
+			else if(aux.equals("+")) // Falta 0 - x -> numero negativo
 			{
 				return sder;
 			}
@@ -174,6 +183,7 @@ public static void main(String[] args){
 	System.out.println("Ingrese Expresion (Notación Polaca Reversa): ");
 	Scanner sc = new Scanner(System.in);
 	while(sc.hasNextLine()){
+
 		String str 		 = sc.nextLine();
 		String strlist[] = split(str);
 
@@ -199,6 +209,8 @@ public static void main(String[] args){
 
 			System.out.println("Derivada respecto a: " + variable);		
 			System.out.println(output);
+			System.out.println("\nIngrese Expresion (Notación Polaca Reversa): ");
+
 		}
 		catch(DivisionPor0 exception)
 		{
