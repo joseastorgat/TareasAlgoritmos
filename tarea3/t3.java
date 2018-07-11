@@ -127,7 +127,7 @@ public static abb Derivate(abb a, String var){
 }
 
 
-public static abb SimplificarArbol(abb a){
+public static abb SimplificarArbol(abb a) throws DivisionPor0 {
 	String aux = a.elemento;
 	if(!(aux.equals("*") || aux.equals("/") || aux.equals("+")  || aux.equals("-")) )
 	{
@@ -149,6 +149,11 @@ public static abb SimplificarArbol(abb a){
 			else if(aux.equals("+") || aux.equals("-")){
 				return sizq;
 			}
+
+			else if(aux.equals("/")){
+		         DivisionPor0 e = new DivisionPor0("División por al Simplificar Arbol");
+		         throw e;
+			}	
 		}
 
 		else if(sizq.elemento.equals("0")){
@@ -161,8 +166,8 @@ public static abb SimplificarArbol(abb a){
 			{
 				return sder;
 			}
-		}
 
+		}
 
 		else if(sizq.elemento.equals("1") && aux.equals("*"))
 		{
