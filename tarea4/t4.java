@@ -16,11 +16,12 @@ public static void main(String[] args){
 		float y = Float.parseFloat(a[1]);
 
 		System.out.println(a[0] + " " +  a[1]);
+		arbol.insertar(x,y);
+		arbol.imprimir();
 
-
-		try{		arbol.insertar(x, y);
-			arbol.imprimir();}
-		catch(java.lang.NullPointerException exception){System.out.println("ERROR" );}
+		// try{		arbol.insertar(x, y);
+			// arbol.imprimir();}
+		// catch(java.lang.NullPointerException exception){System.out.println("ERROR" );}
 
 	}	
 
