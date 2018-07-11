@@ -15,9 +15,9 @@ public static void main(String[] args){
 		int x = Integer.parseInt(a[0]);
 		float y = Float.parseFloat(a[1]);
 
-		System.out.println(a[0] + " " +  a[1]);
+		// System.out.println(a[0] + " " +  a[1]);
 		arbol.insertar(x,y);
-		arbol.imprimir();
+		// arbol.imprimir();
 
 		// try{		arbol.insertar(x, y);
 			// arbol.imprimir();}
