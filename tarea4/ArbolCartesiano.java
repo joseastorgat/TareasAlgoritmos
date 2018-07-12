@@ -60,15 +60,6 @@ class NodoArbolCartesiano
 
   public String imprimir(){
     String imp;
-    // if(this.esRaiz()){
-
-    //   imp = "(" + Integer.toString(this.elemento) + "," + Float.toString(this.prioridad) + "{R} )";      
-    // }
-    // else{
-    //   imp = "(" + Integer.toString(this.elemento) + "," + Float.toString(this.prioridad) + "{" + Integer.toString(this.padre.elemento)+"} )";
-
-    // }
-
     imp = "(" + Integer.toString(this.elemento) + "," + Float.toString(this.prioridad) +")" ;      
 
 
@@ -88,17 +79,39 @@ class NodoArbolCartesiano
       return this.izq.imprimir() + this.der.imprimir() + imp ;
     }
   }
-}
 
+
+  public int costo(int nivel){
+
+    if(this.izq==null && this.der==null){
+      return nivel + 1 ;
+    }
+    
+    else if (this.izq == null) {
+     return 1+ nivel + this.der.costo(1+nivel) ; 
+    }
+    else if (this.der == null) {
+     return  1+ nivel + this.izq.costo(1+nivel) ; 
+      
+    }
+
+    else{
+      return nivel + this.izq.costo(1+nivel) + this.der.costo(1+nivel) + 1;
+    }
+  }
+}
 
 
 class ArbolCartesiano
 {
   NodoArbolCartesiano raiz;
-  
+  int n_nodos;
+
+
   ArbolCartesiano()
   {
     this.raiz = null ;
+    this.n_nodos = 0;
   }
 
   public void insertar(int x, float y)
@@ -106,17 +119,20 @@ class ArbolCartesiano
 
     if(this.raiz==null){
       this.raiz = new NodoArbolCartesiano(x, y);
+      this.n_nodos+=1;
     }
     else{
       NodoArbolCartesiano root = this.raiz;
       boolean insertado = false;
+      
+
       while(!insertado){
         if(x<root.elemento){
           if(root.izq == null){
             root.izq = new NodoArbolCartesiano(x, y, root);
-            // this.imprimir();
+
             this.rotaciones(root.izq);
-            // this.imprimir();
+            this.n_nodos+=1;
             insertado = true;
           }
           else{
@@ -126,9 +142,8 @@ class ArbolCartesiano
         else{
           if(root.der == null){
             root.der = new NodoArbolCartesiano(x, y, root);
-            // this.imprimir();
             this.rotaciones(root.der);
-            // this.imprimir();
+            this.n_nodos+=1;
             insertado = true;
           }
           else{
@@ -139,13 +154,9 @@ class ArbolCartesiano
     }
   }
 
-  public void rotaciones(NodoArbolCartesiano arotar){
+  private void rotaciones(NodoArbolCartesiano arotar){
 
-
-
-
-        //No se Hace Nada
-    if(arotar.esRaiz()){
+    if(arotar.esRaiz()) {
       this.raiz = arotar;
       return;
     }
@@ -212,4 +223,16 @@ class ArbolCartesiano
     String out = this.raiz.imprimir();
     System.out.println(out);
   }
+
+
+  public float CostoPromedio(){
+
+    int n = this.raiz.costo(0);
+
+    return (float) n/this.n_nodos;
+
+
+
+  }
+  
 }

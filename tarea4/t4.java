@@ -26,6 +26,8 @@ public static void main(String[] args){
 	}	
 
 	arbol.imprimir();
+
+	System.out.println(arbol.CostoPromedio());
 	// System.out.println();
 	System.out.println("Fin de Ejecución" );// Fin de Ejecución 
 	}	
