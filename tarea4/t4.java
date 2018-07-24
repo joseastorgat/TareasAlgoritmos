@@ -4,32 +4,32 @@ public class t4{
 
 
 public static void main(String[] args){
+	
+	// Crear Arbol
 	ArbolCartesiano arbol = new ArbolCartesiano();
 
 	Scanner sc = new Scanner(System.in);
+
+	// Leer Linea a Linea
 	while(sc.hasNextLine()){
 
 		String str 		 = sc.nextLine();
 		String a[] = str.split(" ");
 
+		// x elemento
+		// y prioridad
 		int x = Integer.parseInt(a[0]);
 		float y = Float.parseFloat(a[1]);
-
-		// System.out.println(a[0] + " " +  a[1]);
+		
+		//insertar
 		arbol.insertar(x,y);
-		// arbol.imprimir();
-
-		// try{		arbol.insertar(x, y);
-			// arbol.imprimir();}
-		// catch(java.lang.NullPointerException exception){System.out.println("ERROR" );}
 
 	}	
 
+	//Fin e imprimir
 	arbol.imprimir();
-
+	System.out.println("Costo Promedio" );// Fin de Ejecución 
 	System.out.println(arbol.CostoPromedio());
-	// System.out.println();
-	System.out.println("Fin de Ejecución" );// Fin de Ejecución 
 	}	
 }
 
