@@ -37,12 +37,36 @@ class ab
 		this.izq.Lectura(code+"0");
 		this.der.Lectura(code+"1");
 	}
+  }
 
+  public String buscar(char buscado){
+
+    return this.busquedarecursiva("",buscado);
 
   }
 
-}
 
+  private String busquedarecursiva(String code, char buscado){
+
+  if(this.esHoja()){
+      if (this.elemento.equals(buscado)){
+        return code;}
+      else{
+        return "";}
+  }
+  
+  else{
+    String buscarizq =this.izq.busquedarecursiva(code+"0", buscado);
+    if(buscarizq != ""){
+      return buscarizq; }
+    
+    String buscarder = this.der.busquedarecursiva(code+"1", buscado);
+    if(buscarder != ""){
+      return buscarder; }
+    }
+    return "";
+  }
+}
 
 
 
